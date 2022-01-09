@@ -30,15 +30,17 @@ When someone reaches 13 brains:
 
 ``` ruby
 
-Randomly draw and roll 3 dice
+Draw until 3 dice
 
-count up results
+Roll dice
+
+Add results
 
 if 3 shtgn          => end turn with 0 points
 
-if all dice rolled  => end and count brains
-
 else                => decide to end or continue
+
+if all dice rolled  => end and count brains
 
 if end              => count brains
 

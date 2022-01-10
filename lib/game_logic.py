@@ -16,8 +16,8 @@ def turn(player, game):
             break
         if player.rolls != 1:
             # player_cont = check_player_end_game()
-            player_cont = bot_zombies.two_brains(player)
-            if player_cont is False:
+            player_end = bot_zombies.more_shotguns_than_brains(player)
+            if player_end is True:
                 break
         # print(f'\nROLL {player.rolls}:\n')
         player.dice = game.pick_dice(player.dice)
@@ -49,9 +49,9 @@ def check_player_end_game():
     while True:
         player_choice = input("Continue?\nEnter 'y' to continue, or 'n' to give up:  ")
         if player_choice == 'y':
-            return True
-        if player_choice == 'n':
             return False
+        if player_choice == 'n':
+            return True
         print('Wrong input')
 
 # def check_ai_end_game(player, game, bot):
@@ -73,30 +73,40 @@ def display_roll_outcome(roll):
         print('Red footsteps... oh oh!'.rjust(24))
     for _ in range(roll['b']):
         print('BRAAAAAIIIIINSSS'.rjust(24))
-    print('------------------------')
+    print('----------------------------------')
     print()
 
 def display_game_standings(player, game):
     'displays info about the current game'
-    print('Current points:'.ljust(24))
+    print('Current points:'.ljust(34))
     player.display_score()
     print()
-    print('Dice in hand:'.ljust(24))
+    print('Dice in hand:'.ljust(34))
     player.display_dice()
     print('\nDice left in game:'.ljust(24))
     game.dice_in_pool()
 
 def display_end_points(player):
     'shows score at end of game'
+    print('-----------')
+    print('ROUND ENDED')
+    print('-----------')
     print(f'Player {player.name}:')
     print(f'Brains collected: {player.brains}')
+    print(f'Shotguns: {player.shotguns}')
+    print('----------------------------------')
 
-# zombie = zombie_player.ZombiePlayer('COMPUTER')
-# dice_game = game_dice.GameDice()
+def test_bots(times = 1000):
+    'test bots'
+    turn_brains = 0
+    for i in range(times + 1):
+        print(i)
+        score =turn(zombie_player.ZombiePlayer('COMPUTER'), game_dice.GameDice())
+        print(f'ROUND SCORE: {score}'.rjust(34))
+        print('----------------------------------')
+        turn_brains += score
 
-TURN_BRAINS = 0
-PLAY_TIMES = 10
-for i in range(PLAY_TIMES):
-    TURN_BRAINS += turn(zombie_player.ZombiePlayer('COMPUTER'), game_dice.GameDice())
+    print(f'AVERAGE SCORE: {turn_brains/times}'.rjust(34))
+    print('----------------------------------')
 
-print(TURN_BRAINS/PLAY_TIMES)
+test_bots()

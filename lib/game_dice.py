@@ -31,14 +31,13 @@ class GameDice():
         while sum(player_dice) < 3:
             total_dice = self.green_dice + self.yellow_dice + self.red_dice
             new_dice = random.randint(1, total_dice)
-
             if new_dice < self.green_dice:
                 self.green_dice -= 1
                 player_dice[0] += 1
             elif new_dice < self.green_dice + self.yellow_dice:
                 self.yellow_dice -= 1
                 player_dice[1] += 1
-            elif new_dice < total_dice:
+            elif new_dice <= total_dice:
                 self.red_dice -= 1
                 player_dice[2] += 1
         return player_dice
@@ -76,6 +75,7 @@ def roll_dice(player_dice):
     stores the color of footstep dice
     returns false if given wrong amount of dice'''
     if player_dice[0] + player_dice[1] + player_dice[2] != 3:
+        print('ERROR IN roll_dice')
         return False
 
     dice_results = {'s': 0, 'f': {'g': 0, 'y': 0, 'r': 0}, 'b': 0}

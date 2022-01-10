@@ -13,8 +13,8 @@ def random_choice(_player):
 
 def two_brains(player):
     'A bot that stops rolling after it has rolled two brains'
+    print(f'Brains: {player.brains}')
     if player.brains >= 2:
-        print(f'Brains: {player.brains}')
         return True
     return False
 
@@ -33,8 +33,6 @@ def random_stop_two_shotgun(player):
     if player.shotguns >= 2:
         return True
     return False
-
-
 
 def more_shotguns_than_brains(player):
     'A bot that stops rolling after it has rolled more shotguns than brains'

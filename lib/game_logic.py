@@ -3,7 +3,6 @@
 
 # .lib/new_game.py
 
-import time
 import zombie_player
 import game_dice
 
@@ -16,20 +15,17 @@ def turn(player, game):
         if forced_end is True:
             break
         if rolls != 1:
-            player_cont = check_player_end_game(player, game)
+            player_cont = check_player_end_game()
             if player_cont is False:
                 break
         print(f'\nROLL {rolls}:\n')
         player.dice = game.pick_dice(player.dice)
         print('Dice pulled: ')
         player.display_dice()
-        time.sleep(1)
         print('\nROLLING DICE ...\n')
-        time.sleep(1)
 
         roll = game_dice.roll_dice(player.dice)
         roll_outcome(roll)
-        time.sleep(1)
         player.update_scores(roll)
         game_standings(player, game)
 
@@ -46,7 +42,7 @@ def check_forced_end_game(player, game):
         return True
     return False
 
-def check_player_end_game(player, game):
+def check_player_end_game():
     'Returns true if the player wishes to continue'
     while True:
         player_choice = input("Continue?\nEnter 'y' to continue, or 'n' to give up:  ")
@@ -57,6 +53,7 @@ def check_player_end_game(player, game):
         print('Wrong input')
 
 def roll_outcome(roll):
+    'display current roll'
     print('You rolled: ')
     print('------------------------')
     for _ in range(roll['s']):

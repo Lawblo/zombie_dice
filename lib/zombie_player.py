@@ -1,9 +1,7 @@
 #! /usr/lib/python3
+'contains info about the zombie'
 
 # .lib/zombie_player.py
-
-import game_dice
-
 
 class ZombiePlayer():
     'handles player info'
@@ -15,16 +13,15 @@ class ZombiePlayer():
 
     def display_dice(self):
         'display the players current dice'
-        print('Dice in inventory:')
-        print(f'Green dice: {self.dice[0]}')
-        print(f'Yellow dice: {self.dice[1]}')
-        print(f'Red dice: {self.dice[2]}')
+        print(f'Green dice: {self.dice[0]}'.rjust(24))
+        print(f'Yellow dice: {self.dice[1]}'.rjust(24))
+        print(f'Red dice: {self.dice[2]}'.rjust(24))
 
     def update_scores(self, dice_roll):
         'takes a dice roll and updates the players values'
         self.dice = [0, 0, 0]
-        self.brains = dice_roll['b']
-        self.shotguns = dice_roll['s']
+        self.brains += dice_roll['b']
+        self.shotguns += dice_roll['s']
         for _ in range(dice_roll['f']['g']):
             self.dice[0] += 1
         for _ in range(dice_roll['f']['y']):
@@ -34,5 +31,9 @@ class ZombiePlayer():
 
     def display_score(self):
         'show current score'
-        print(f'Brains: {self.brains}')
-        print(f'Shotguns: {self.shotguns}')
+        print(f'Brains: {self.brains}'.rjust(24))
+        print(f'Shotguns: {self.shotguns}'.rjust(24))
+
+    def player_dice_amount(self):
+        'returns the sum of the players current dice'
+        return sum(self.dice)

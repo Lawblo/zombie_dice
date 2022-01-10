@@ -14,13 +14,19 @@ class GameDice():
 
     def dice_in_pool(self):
         'shows what dice are in the pool'
-        print(f'Green dice: {self.green_dice}')
-        print(f'Yellow dice: {self.yellow_dice}')
-        print(f'Red dice: {self.red_dice}')
+        print(f'Green dice: {self.green_dice}'.rjust(24))
+        print(f'Yellow dice: {self.yellow_dice}'.rjust(24))
+        print(f'Red dice: {self.red_dice}'.rjust(24))
+
+    def dice_left(self):
+        'returns the amount of dice left in the pool'
+        dice_left = self.green_dice + self.yellow_dice + self.red_dice
+        return dice_left
 
     def pick_dice(self, player_dice):
         'get a random dice until 3 dice'
-        if self.green_dice + self.yellow_dice + self.red_dice + sum(player_dice) < 3: return False
+        if self.green_dice + self.yellow_dice + self.red_dice + sum(player_dice) < 3:
+            return False
 
         while sum(player_dice) < 3:
             total_dice = self.green_dice + self.yellow_dice + self.red_dice
@@ -69,7 +75,8 @@ def roll_dice(player_dice):
     returns a dictionary: {'s': 0, 'f': {'g': 0, 'y': 0, 'r': 0}, 'b': 0}
     stores the color of footstep dice
     returns false if given wrong amount of dice'''
-    if player_dice[0] + player_dice[1] + player_dice[2] != 3: return False
+    if player_dice[0] + player_dice[1] + player_dice[2] != 3:
+        return False
 
     dice_results = {'s': 0, 'f': {'g': 0, 'y': 0, 'r': 0}, 'b': 0}
     for _ in range(player_dice[0]):
@@ -91,4 +98,3 @@ def roll_dice(player_dice):
         else:
             dice_results[roll] += 1
     return dice_results
-

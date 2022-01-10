@@ -5,39 +5,41 @@
 
 import zombie_player
 import game_dice
+import bot_zombies
 
 def turn(player, game):
     'turn handler'
-    rolls = 0
     while True:
-        rolls += 1
+        player.rolls += 1
         forced_end = check_forced_end_game(player, game)
         if forced_end is True:
             break
-        if rolls != 1:
-            player_cont = check_player_end_game()
+        if player.rolls != 1:
+            # player_cont = check_player_end_game()
+            player_cont = bot_zombies.two_brains(player)
             if player_cont is False:
                 break
-        print(f'\nROLL {rolls}:\n')
+        # print(f'\nROLL {player.rolls}:\n')
         player.dice = game.pick_dice(player.dice)
-        print('Dice pulled: ')
-        player.display_dice()
-        print('\nROLLING DICE ...\n')
+        # print('Dice pulled: ')
+        # player.display_dice()
+        # print('\nROLLING DICE ...\n')
 
         roll = game_dice.roll_dice(player.dice)
-        roll_outcome(roll)
+        # display_roll_outcome(roll)
         player.update_scores(roll)
-        game_standings(player, game)
+        # display_game_standings(player, game)
 
-    end_points(player)
+    display_end_points(player)
+    return player.brains
 
 def check_forced_end_game(player, game):
     'Returns True if theres not enough dice left to continue the round'
     if (player.player_dice_amount() + game.dice_left()) < 3:
-        print('Not enough dice to continue! Round over.')
+        # print('Not enough dice to continue! Round over.')
         return True
     if (player.shotguns) > 2:
-        print('Collected 3 shotguns! GAME OVER!')
+        # print('Collected 3 shotguns! GAME OVER!')
         player.brains = 0
         return True
     return False
@@ -52,7 +54,12 @@ def check_player_end_game():
             return False
         print('Wrong input')
 
-def roll_outcome(roll):
+# def check_ai_end_game(player, game, bot):
+#     'checks if the bot wants to continue'
+#     #bot(player, game)
+#     bot(game, player)
+
+def display_roll_outcome(roll):
     'display current roll'
     print('You rolled: ')
     print('------------------------')
@@ -69,7 +76,7 @@ def roll_outcome(roll):
     print('------------------------')
     print()
 
-def game_standings(player, game):
+def display_game_standings(player, game):
     'displays info about the current game'
     print('Current points:'.ljust(24))
     player.display_score()
@@ -79,11 +86,17 @@ def game_standings(player, game):
     print('\nDice left in game:'.ljust(24))
     game.dice_in_pool()
 
-def end_points(player):
+def display_end_points(player):
     'shows score at end of game'
+    print(f'Player {player.name}:')
     print(f'Brains collected: {player.brains}')
 
-zombie = zombie_player.ZombiePlayer()
-dice_game = game_dice.GameDice()
+# zombie = zombie_player.ZombiePlayer('COMPUTER')
+# dice_game = game_dice.GameDice()
 
-turn(zombie, dice_game)
+TURN_BRAINS = 0
+PLAY_TIMES = 10
+for i in range(PLAY_TIMES):
+    TURN_BRAINS += turn(zombie_player.ZombiePlayer('COMPUTER'), game_dice.GameDice())
+
+print(TURN_BRAINS/PLAY_TIMES)

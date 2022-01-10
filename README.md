@@ -21,7 +21,7 @@ Can roll until used all 13 dice or 3 shtgn blasts
 
 **Footsteps** => Set aside brains and shotgun dice, draw until 3 dice and reroll if continue.
 
-When someone reaches 13 brains: 
+When someone reaches 13 brains:
   End game after round
   Winner is most brains
   If tie, tied players play one last tiebraker round

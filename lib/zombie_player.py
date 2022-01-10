@@ -5,11 +5,12 @@
 
 class ZombiePlayer():
     'handles player info'
-    def __init__(self, name = input('Enter zombie name: \n')):
+    def __init__(self, name):
         self.name = name
         self.brains = 0
         self.shotguns = 0
         self.dice = [0, 0, 0]
+        self.rolls = 0
 
     def display_dice(self):
         'display the players current dice'
